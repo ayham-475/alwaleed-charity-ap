@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function ProjectsSection() {
   const [activeImage, setActiveImage] = useState(null);
@@ -98,10 +99,12 @@ export default function ProjectsSection() {
 
                 {/* زر اقرأ المزيد البيضاوي الممركز بالأسفل */}
                 <div className="pt-4 pb-1 flex justify-center">
+                  <Link to="/Projects">
                   <button className="px-8 py-2.5 bg-white text-[#0d7a53] font-bold text-xs rounded-full inline-flex items-center gap-2 shadow-md hover:bg-gray-100 active:scale-95 transition-all">
                     <span>اقرأ المزيد</span>
                     <ChevronDown className="w-4 h-4 stroke-[2.5]" />
                   </button>
+                  </Link>
                 </div>
 
               </div>

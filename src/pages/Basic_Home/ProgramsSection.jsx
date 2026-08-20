@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ProgramsSection() {
   const [activeImage, setActiveImage] = useState(null);
@@ -115,9 +116,11 @@ export default function ProgramsSection() {
 
                   {/* زر تقديم طلب الأبيض البيضاوي */}
                   <div className="pt-1">
+                    <Link to="/ApplyPage">
                     <button className="w-full py-3 bg-white text-[#0d7a53] font-bold text-sm rounded-full flex items-center justify-center shadow-md hover:bg-gray-100 active:scale-95 transition-all">
                       تقديم طلب
                     </button>
+                    </Link>
                   </div>
                 </div>
 

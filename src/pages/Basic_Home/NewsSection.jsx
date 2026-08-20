@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronLeft, Newspaper, CheckCircle2 } from 'lucide-react';
 
 export default function NewsSection() {
@@ -21,7 +22,7 @@ export default function NewsSection() {
     },
     {
       id: 3,
-      image: 'https://alweleedphilanthopies.com/storage/news/media/V9Ts2KxAnqEFudJF0uyEUZRfDVhUCzXveebluQc8.jpg ', // صورة السيارات
+      image: 'https://alweleedphilanthopies.com/storage/news/media/V9Ts2KxAnqEFudJF0uyEUZRfDVhUCzXveebluQc8.jpg', // صورة السيارات
       badgeOverlay: 'مشروع السيارات الدفعة السابعة',
       date: '2026/06/03',
       title: 'طريقة التواصل مع مؤسسة الوليد للإنسانية',
@@ -55,22 +56,22 @@ export default function NewsSection() {
               className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow duration-300"
             >
               <div>
-                {/* قسم الصورة مع تأثير التمدد والحركة عند الضغط */}
-                <div 
-                  className="relative h-56 w-full bg-gray-100 overflow-hidden cursor-pointer select-none"
-                  onClick={() => setActiveImage(activeImage === item.id ? null : item.id)}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className={`w-full h-full object-cover transition-transform duration-500 ease-out hover:scale-105 active:scale-125 ${
-                      activeImage === item.id ? 'scale-125 z-10 shadow-2xl' : 'scale-100'
-                    }`}
-                  />
+                {/* قسم الصورة مع التوجيه لصفحة التفاصيل عند التقرير */}
+                <div className="relative h-56 w-full bg-gray-100 overflow-hidden select-none">
+                  <Link to={`/NewsDetails/${item.id}`}>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      onClick={() => setActiveImage(activeImage === item.id ? null : item.id)}
+                      className={`w-full h-full object-cover transition-transform duration-500 ease-out hover:scale-105 active:scale-125 ${
+                        activeImage === item.id ? 'scale-125 z-10 shadow-2xl' : 'scale-100'
+                      }`}
+                    />
+                  </Link>
                   
-                  {/* الشعار الأخضر المدمج داخل الصورة الأولى إن وجد */}
+                  {/* الشعار الأخضر المدمج داخل الصورة إن وجد */}
                   {item.badgeOverlay && (
-                    <div className="absolute bottom-3 left-3 bg-[#0d7a53] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-1 z-20">
+                    <div className="absolute bottom-3 left-3 bg-[#0d7a53] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-1 z-20 pointer-events-none">
                       <span>{item.badgeOverlay}</span>
                     </div>
                   )}
@@ -84,10 +85,12 @@ export default function NewsSection() {
                     <CheckCircle2 className="w-3.5 h-3.5 text-black fill-black text-white" />
                   </div>
 
-                  {/* العنوان الرئيسي */}
-                  <h3 className="text-base font-bold text-gray-900 leading-snug">
-                    {item.title}
-                  </h3>
+                  {/* العنوان الرئيسي مرتبط بصفحة التفاصيل */}
+                  <Link to={`/NewsDetails/${item.id}`} className="block">
+                    <h3 className="text-base font-bold text-gray-900 leading-snug hover:text-[#0d7a53] transition-colors">
+                      {item.title}
+                    </h3>
+                  </Link>
 
                   {/* النص الفرعي */}
                   <p className="text-xs text-gray-400 leading-relaxed line-clamp-2">
@@ -98,27 +101,27 @@ export default function NewsSection() {
 
               {/* زر اقرأ المزيد الداخلي */}
               <div className="px-6 pb-6 pt-2 text-right">
-                <a
-                  href={`#news-${item.id}`}
+                <Link
+                  to={`/NewsDetails/${item.id}`}
                   className="inline-flex items-center gap-1 text-[#0d7a53] text-xs font-bold hover:underline"
                 >
                   اقرأ المزيد
                   <ChevronLeft className="w-3.5 h-3.5" />
-                </a>
+                </Link>
               </div>
             </div>
           ))}
         </div>
 
-        {/* زر عرض جميع الأخبار في الأسفل */}
+        {/* زر عرض جميع الأخبار يوجه لصفحة الأخبار العامة */}
         <div className="flex justify-center pt-6">
-          <a
-            href="#all-news"
+          <Link
+            to="/News"
             className="inline-flex items-center gap-2 bg-[#0d7a53] hover:bg-[#0a6343] text-white px-8 py-3 rounded-full text-sm font-bold shadow-md transition-all hover:scale-105"
           >
             عرض جميع الأخبار
             <ChevronLeft className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
 
       </div>

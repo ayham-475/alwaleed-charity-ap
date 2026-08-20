@@ -52,14 +52,14 @@ export default function Home() {
             {/* الأزرار الشفافة والمملوءة المطابقة تماماً للصورة */}
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                to="/apply"
+                to="/ApplyPage"
                 className="w-full sm:w-auto px-9 py-3.5 bg-white text-[#0d7a53] font-extrabold rounded-full flex items-center justify-center gap-2 hover:bg-gray-50 transition-all shadow-xl hover:scale-105 active:scale-95"
               >
                 تقديم طلب
                 <ArrowLeft className="w-5 h-5" />
               </Link>
               <Link
-                to="/status"
+                to="/TrackOrder"
                 className="w-full sm:w-auto px-9 py-3.5 border-2 border-white/90 text-white font-extrabold rounded-full bg-black/10 backdrop-blur-sm hover:bg-white/20 transition-all shadow-lg hover:scale-105 active:scale-95"
               >
                 متابعة طلبك
