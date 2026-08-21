@@ -2,14 +2,16 @@ const AIRTABLE_TOKEN = import.meta.env.VITE_AIRTABLE_API_TOKEN;
 const BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
 const TABLE_NAME = import.meta.env.VITE_AIRTABLE_TABLE_NAME || 'Applications';
 
-// التحقق من وجود البيانات الأساسية قبل تنفيذه للطلبات
+// التحقق من وجود البيانات الأساسية قبل تنفيذ الطلبات
 if (!AIRTABLE_TOKEN || !BASE_ID) {
   console.error("Airtable Configuration Missing: Check your .env or Vercel Environment Variables.");
 }
+
 const BASE_URL = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`;
 
+// ✅ تم تصحيح TOKEN إلى AIRTABLE_TOKEN
 const headers = {
-  Authorization: `Bearer ${TOKEN}`,
+  Authorization: `Bearer ${AIRTABLE_TOKEN}`,
   'Content-Type': 'application/json',
 };
 
@@ -46,9 +48,6 @@ export const submitApplication = async (formData) => {
 };
 
 // 2. تحديث حالة الطلب
-// 3. حذف طلب من Airtable
-
-
 export const updateApplicationStatus = async (recordId, newStatus) => {
   const response = await fetch(`${BASE_URL}/${recordId}`, {
     method: 'PATCH',
@@ -67,6 +66,8 @@ export const updateApplicationStatus = async (recordId, newStatus) => {
 
   return await response.json();
 };
+
+// 3. حذف طلب من Airtable
 export const deleteApplication = async (recordId) => {
   const response = await fetch(`${BASE_URL}/${recordId}`, {
     method: 'DELETE',
