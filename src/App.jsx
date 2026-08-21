@@ -19,7 +19,25 @@ import ApplyPage from './pages/pages general/ApplyPage.jsx'
 import TrackOrder from './pages/pages general/TrackOrder.jsx'
 import './App.css'
 import NewsDetails from './pages/News/NewsDetails.jsx'
+import FAQSection from './pages/ProjectGoals/FAQSection.jsx'
+import Admin from './pages/Management/admin.jsx'
+import RequestDetails from './pages/Management/RequestDetails.jsx'
+import PrivacyPolicy from './pages/pages general/PrivacyPolicy.jsx'
+import TermsAndConditions from './pages/pages general/TermsAndConditions.jsx'
+import ProjectDeatils from './pages/pages general/projectDeatils.jsx'
 function App() {
+  const [requests, setRequests] = useState([])
+
+  const handleUpdateStatus = (id, newStatus, reason = '') => {
+    setRequests(prev =>
+      prev.map(req =>
+        (req.recordId === id || req.id === id)
+          ? { ...req, status: newStatus, rejectionReason: reason }
+          : req
+      )
+    )
+  }
+
   return (
     <div className="relative min-h-screen flex flex-col justify-between">
       {/* إعادة التمرير للأعلى عند تغيير أي صفحة */}
@@ -41,6 +59,28 @@ function App() {
           <Route path="/ApplyPage" element={<ApplyPage />} />
           <Route path="/TrackOrder" element={<TrackOrder />} />
           <Route path="/NewsDetails/:id" element={<NewsDetails />} />
+          <Route path="/quistion" element={<FAQSection />} />
+           <Route path="/ProjectDetails/:id" element={<ProjectDeatils />} />
+
+          {/* لوحة التحكم وتفاصيل الطلب */}
+          <Route path="/admin" element={<Admin requests={requests} setRequests={setRequests} />} />
+          <Route 
+            path="/admin/requests/:id" 
+            element={
+              <RequestDetails 
+                requests={requests} 
+                onUpdateStatus={handleUpdateStatus} 
+              />
+            } 
+          />
+
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+          {/* تصحيح ربط الشروط والأحكام بالمكون الصحيح بدلاً من Admin */}
+          <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+
+
+
+         
         </Routes>
       </main>
 

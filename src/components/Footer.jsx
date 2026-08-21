@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -10,55 +11,78 @@ export default function Footer() {
           
           {/* العمود الأول: نبذة عن المؤسسة */}
           <div className="space-y-3">
-            <h3 className="text-base font-bold text-white">
+            <h3 className="text-xl font-bold text-white">
               مؤسسة الوليد للإنسانية
             </h3>
-            <p className="text-xs text-white/80 leading-relaxed font-light">
+            <p className="text-sm sm:text-base text-white/90 leading-relaxed font-light">
               نسعى لمساعدة المحتاجين وتوفير الدعم اللازم لهم من خلال برامجنا المتنوعة، انطلاقاً من التزامنا الإنساني ومسؤوليتنا الاجتماعية، حيث نعمل على تقديم العون للفئات الأشد احتياجاً عبر مبادرات مدروسة تشمل الدعم المالي، والخدمات الاجتماعية، وبرامج التمكين، بما يسهم في تحسين جودة حياتهم وتحقيق الاستقرار لهم، وذلك وفق آليات واضحة ومعايير معتمدة تضمن العدالة والشفافية والاستدامة في العطاء.
             </p>
           </div>
 
           {/* العمود الثاني: روابط سريعة */}
           <div className="space-y-3">
-            <h3 className="text-base font-bold text-white">
+            <h3 className="text-xl font-bold text-white">
               روابط سريعة
             </h3>
-            <ul className="space-y-2 text-xs text-white/80 font-light">
+            <ul className="space-y-2.5 text-sm sm:text-base text-white/90 font-light">
               <li>
-                <a href="#about" className="hover:text-white transition-colors">عن المؤسسة</a>
+                <Link to="/AboutUs" className="hover:text-white hover:underline transition-colors">عن المؤسسة</Link>
               </li>
               <li>
-                <a href="#programs" className="hover:text-white transition-colors">البرامج</a>
+                <Link to="/Programs" className="hover:text-white hover:underline transition-colors">البرامج</Link>
               </li>
               <li>
-                <a href="#faq" className="hover:text-white transition-colors">الأسئلة الشائعة</a>
+                <Link to="/quistion" className="hover:text-white hover:underline transition-colors">الأسئلة الشائعة</Link>
               </li>
               <li>
-                <a href="#privacy" className="hover:text-white transition-colors">سياسة الخصوصية</a>
+                <Link to="/PrivacyPolicy" className="hover:text-white hover:underline transition-colors">سياسة الخصوصية</Link>
               </li>
               <li>
-                <a href="#terms" className="hover:text-white transition-colors">الشروط والأحكام</a>
+                <Link to="/TermsAndConditions" className="hover:text-white hover:underline transition-colors">الشروط والأحكام</Link>
               </li>
             </ul>
           </div>
 
           {/* العمود الثالث: تواصل معنا */}
           <div className="space-y-3">
-            <h3 className="text-base font-bold text-white">
+            <h3 className="text-xl font-bold text-white">
               تواصل معنا
             </h3>
-            <div className="space-y-2 text-xs text-white/80 font-light dir-rtl">
+            <div className="space-y-2.5 text-sm sm:text-base text-white/90 font-light dir-rtl">
               <p>
                 <span className="font-semibold text-white">البريد الإلكتروني: </span>
-                <span className="font-mono dir-ltr inline-block">princes.website@alweleed.com</span>
+                <a href="mailto:princes.website@alweleed.com" className="font-mono dir-ltr inline-block hover:underline">
+                  princes.website@alweleed.com
+                </a>
               </p>
               <p>
                 <span className="font-semibold text-white">الهاتف: </span>
-                <span className="font-mono dir-ltr inline-block">+966548083615</span>
+                <a href="tel:+966548083615" className="font-mono dir-ltr inline-block hover:underline">
+                  +966546082759
+                </a>
               </p>
               <p>
                 <span className="font-semibold text-white">واتساب: </span>
-                <span className="font-mono dir-ltr inline-block">966561995859</span>
+                <a 
+                  href="https://wa.me/966546082759" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-mono dir-ltr inline-block hover:underline"
+                >
+                  966546082759
+                  
+                </a>
+              </p>
+              <p>
+                <span className="font-semibold text-white">تليجرام: </span>
+                <a 
+                  href="https://wa.me/966546082759" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="font-mono dir-ltr inline-block hover:underline"
+                >
+                  966546082759
+                </a>
               </p>
             </div>
           </div>
@@ -67,7 +91,7 @@ export default function Footer() {
 
         {/* الخط الفاصل السفلي وحقوق الحفظ */}
         <div className="border-t border-white/10 pt-6 text-center">
-          <p className="text-xs text-white/70 font-light">
+          <p className="text-sm text-white/80 font-light">
             © 2026 مؤسسة الوليد للإنسانية. جميع الحقوق محفوظة.
           </p>
         </div>

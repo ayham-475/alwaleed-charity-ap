@@ -185,7 +185,7 @@ export default function NewsDetails() {
                 </div>
 
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 bg-gray-100">
-                  <img
+                  <img  
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

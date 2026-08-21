@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ContactBannerSection() {
   return (
@@ -19,14 +20,18 @@ export default function ContactBannerSection() {
           {/* الأزرار */}
           <div className="flex flex-row-reverse items-center justify-center gap-4 pt-2">
             {/* زر تواصل معنا (أبيض) */}
+            <Link to="/">
             <button className="bg-white text-[#008752] font-bold px-7 py-2.5 rounded-xl hover:bg-gray-100 transition-colors shadow-sm text-sm">
               تواصل معنا
             </button>
+            </Link>
 
             {/* زر الأسئلة الشائعة (أخضر داكن) */}
+            <Link to="/quistion">
             <button className="bg-[#006e42] hover:bg-[#005e38] text-white font-bold px-7 py-2.5 rounded-xl transition-colors border border-white/10 text-sm">
               الأسئلة الشائعة
             </button>
+            </Link>
           </div>
 
         </div>

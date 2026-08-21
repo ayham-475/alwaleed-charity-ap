@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Globe } from 'lucide-react';
 import { ArrowLeft, MessageSquare } from 'lucide-react';
 import HomeProjectsSection from './HomeProjectsSection';
 import AboutSection from './AboutSection';
@@ -7,8 +8,8 @@ import HowItWorksSection from './HowItWorksSection';
 import NewsSection from './NewsSection';
 import FaqSection from './FaqSection';
 import ProgramsSection from './ProgramsSection';
+
 export default function Home() {
-  
   return (
     <div className="relative min-h-screen bg-white">
 
@@ -18,19 +19,18 @@ export default function Home() {
       </button>
 
       {/* 1. Hero Section بوضوح عالٍ وتدرج شفاف متطابق */}
-      <section 
-        className="relative w-full h-[550px] sm:h-[620px] bg-cover bg-center bg-no-repeat overflow-hidden" 
-        style={{ 
-          // صورة بدقة عالية تعكس طابع المقرات والمؤسسات الرسمية
-          backgroundImage: `url('https://alweleedphilanthopies.com/storage/hero/ECTiEWhTG4I3WWlPvcX20ylG0SIKFQngoOk5dqOe.jpg')` 
+      <section
+        className="relative w-full h-[550px] sm:h-[620px] bg-cover bg-center bg-no-repeat overflow-hidden"
+        style={{
+          backgroundImage: `url('https://alweleedphilanthopies.com/storage/hero/ECTiEWhTG4I3WWlPvcX20ylG0SIKFQngoOk5dqOe.jpg')`
         }}
       >
-        
-        {/* طبقة التدرج الخضراء الشفافة (Gradual Green Overlay) - تسمح برؤية التفاصيل بوضوح مع إبراز النصوص */}
+
+        {/* طبقة التدرج الخضراء الشفافة */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0d7a53]/80 via-[#0d7a53]/70 to-[#0d7a53]/85 backdrop-contrast-105 flex flex-col items-center justify-center text-center text-white px-4">
-          
-          <div className="space-y-6 max-w-4xl mx-auto drop-shadow-md">
-            
+
+          <div className="space-y-5 max-w-4xl mx-auto drop-shadow-md">
+
             {/* الشارة العليا الشفافة */}
             <div className="inline-block px-6 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold text-white border border-white/30 shadow-sm">
               مشاريع الوليد للإنسانية للمساعدات المحتاجين
@@ -49,7 +49,7 @@ export default function Home() {
             {/* نقطة المزاج التفاعلية فوق الأزرار */}
             <div className="w-1.5 h-6 mx-auto bg-white/60 rounded-full animate-bounce"></div>
 
-            {/* الأزرار الشفافة والمملوءة المطابقة تماماً للصورة */}
+            {/* الأزرار الرئيسية */}
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/ApplyPage"
@@ -66,18 +66,29 @@ export default function Home() {
               </Link>
             </div>
 
+            {/* أيقونة وخيار التواصل المباشر عبر الواتساب في الجزء المحدد */}
+            <div className="pt-3 flex items-center justify-center">
+              <a
+                href="tel:+966546082759"
+                className="inline-flex items-center gap-2.5 px-6 py-2.5 bg-white/15 hover:bg-white/25 backdrop-blur-md text-white text-sm sm:text-base font-semibold rounded-full border border-white/30 shadow-lg transition-all hover:scale-105 active:scale-95 group"
+              >
+                <Globe className="w-5 h-5 text-emerald-300 group-hover:text-emerald-200 transition-colors" />
+                <span>تواصل عبر اي منصة: <span className="font-mono dir-ltr inline-block text-emerald-200">966546082759+</span></span>
+              </a>
+            </div>
+
           </div>
 
         </div>
       </section>
 
-      {/* 2. قسم المشاريع بأعلى وضوح وحواف دائرية متناسقة */}
-     <HomeProjectsSection/>
-     <AboutSection />
-     <HowItWorksSection />
-     <NewsSection />
-     <FaqSection/>
-     <ProgramsSection />
+      {/* 2. باقي أجزاء الصفحة */}
+      <HomeProjectsSection />
+      <AboutSection />
+      <HowItWorksSection />
+      <NewsSection />
+      <FaqSection />
+      <ProgramsSection />
 
     </div>
   );

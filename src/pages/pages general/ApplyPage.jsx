@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Home, Send, Check } from 'lucide-react';
+import { Home, Send, Check, Loader2 } from 'lucide-react';
+import { submitApplication } from '../../services/airtableService';// استدعاء دالة الإرسال
 
 export default function ApplyPage() {
   const [selectedProgram, setSelectedProgram] = useState(null);
   const [isAgreed, setIsAgreed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -41,9 +43,69 @@ export default function ApplyPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // دالة التعامل مع إرسال النموذج
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!selectedProgram) {
+      alert('يرجى اختيار نوع البرنامج');
+      return;
+    }
+
+    if (!isAgreed) {
+      alert('يرجى الموافقة على الشروط والأحكام أولاً');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // الحصول على اسم البرنامج المحدد
+      const programObj = programs.find((p) => p.id === selectedProgram);
+
+      // تجهيز الحقول للارسال الى Airtable
+      const payload = {
+        programType: programObj ? programObj.name : '',
+        fullName: formData.fullName,
+        email: formData.email,
+        nationalId: formData.nationalId,
+        address: formData.address,
+        nationality: formData.nationality,
+        phoneNumber: formData.phone,
+        accountNumber: formData.accountNumber,
+        bankName: formData.bankName,
+        message: formData.caseDetails,
+        termsAccepted: isAgreed,
+      };
+
+      await submitApplication(payload);
+
+      alert('تم إرسال طلبك بنجاح!');
+
+      // إعادة تصفير البيانات بعد الإرسال
+      setFormData({
+        fullName: '',
+        email: '',
+        nationalId: '',
+        address: '',
+        nationality: '',
+        phone: '',
+        accountNumber: '',
+        bankName: '',
+        caseDetails: '',
+      });
+      setSelectedProgram(null);
+      setIsAgreed(false);
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      alert('حدث خطأ أثناء إرسال الطلب: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div dir="rtl" className="min-h-screen bg-white py-10 px-4 font-sans text-right text-white">
-      {/* تم التكبير قليلاً من max-w-2xl إلى max-w-3xl */}
       <div className="max-w-3xl mx-auto space-y-6">
 
         {/* الترويسة */}
@@ -59,12 +121,12 @@ export default function ApplyPage() {
           </p>
         </div>
 
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* 1. بطاقة نوع الطلب */}
           <div className="bg-[#008752] rounded-[20px] p-6 sm:p-7 shadow-sm">
             <h2 className="text-sm sm:text-base font-bold mb-5 text-white">نوع الطلب</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {programs.map((prog) => {
                 const isSelected = selectedProgram === prog.id;
                 return (
@@ -102,6 +164,7 @@ export default function ApplyPage() {
                     <input
                       type="text"
                       name="fullName"
+                      required
                       placeholder="الاسم الرباعي"
                       value={formData.fullName}
                       onChange={handleChange}
@@ -114,6 +177,7 @@ export default function ApplyPage() {
                     <input
                       type="email"
                       name="email"
+                      required
                       placeholder="example@email.com"
                       value={formData.email}
                       onChange={handleChange}
@@ -127,6 +191,7 @@ export default function ApplyPage() {
                     <input
                       type="text"
                       name="nationalId"
+                      required
                       placeholder="رقم الهوية الوطنية"
                       value={formData.nationalId}
                       onChange={handleChange}
@@ -139,6 +204,7 @@ export default function ApplyPage() {
                     <input
                       type="text"
                       name="address"
+                      required
                       placeholder="المدينة"
                       value={formData.address}
                       onChange={handleChange}
@@ -151,6 +217,7 @@ export default function ApplyPage() {
                     <input
                       type="text"
                       name="nationality"
+                      required
                       placeholder="الجنسية"
                       value={formData.nationality}
                       onChange={handleChange}
@@ -163,6 +230,7 @@ export default function ApplyPage() {
                     <input
                       type="tel"
                       name="phone"
+                      required
                       placeholder="05xxxxxxx"
                       value={formData.phone}
                       onChange={handleChange}
@@ -183,6 +251,7 @@ export default function ApplyPage() {
                     <input
                       type="text"
                       name="accountNumber"
+                      required
                       placeholder="SA00 0000 0000 0000 0000 0000"
                       value={formData.accountNumber}
                       onChange={handleChange}
@@ -195,6 +264,7 @@ export default function ApplyPage() {
                     <label className="text-xs font-bold text-white">اسم البنك <span className="text-red-300">*</span></label>
                     <select
                       name="bankName"
+                      required
                       value={formData.bankName}
                       onChange={handleChange}
                       className="w-full bg-[#077a4a] border border-[#0ea063] rounded-lg px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:bg-[#099b5e] focus:border-white transition-all cursor-pointer"
@@ -219,6 +289,7 @@ export default function ApplyPage() {
                   <textarea
                     name="caseDetails"
                     rows="3"
+                    required
                     placeholder="اشرح حالتك بشكل مختصر وواضح..."
                     value={formData.caseDetails}
                     onChange={handleChange}
@@ -245,11 +316,21 @@ export default function ApplyPage() {
                 </label>
 
                 <button
-                  type="button"
-                  className="bg-white hover:bg-emerald-50 text-[#008752] font-bold px-7 py-2.5 rounded-xl text-xs sm:text-sm flex items-center gap-2 transition-all shadow-sm shrink-0 w-full sm:w-auto justify-center"
+                  type="submit"
+                  disabled={loading}
+                  className="bg-white hover:bg-emerald-50 text-[#008752] font-bold px-7 py-2.5 rounded-xl text-xs sm:text-sm flex items-center gap-2 transition-all shadow-sm shrink-0 w-full sm:w-auto justify-center disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <span>ارسال الطلب</span>
-                  <Send className="w-4 h-4 rotate-180" />
+                  {loading ? (
+                    <>
+                      <span>جاري الإرسال...</span>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      <span>ارسال الطلب</span>
+                      <Send className="w-4 h-4 rotate-180" />
+                    </>
+                  )}
                 </button>
               </div>
 

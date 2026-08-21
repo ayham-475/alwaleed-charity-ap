@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowLeft, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function AboutSection() {
   const values = [
@@ -38,84 +39,19 @@ export default function AboutSection() {
       
       {/* 1. زر مشاهدة جميع المشاريع العلوي */}
       <div className="flex justify-center mb-16">
-        <a
-          href="#projects"
+        <Link
+          to="/Projects"
           className="inline-flex items-center gap-2 bg-[#0d7a53] hover:bg-[#0a6343] text-white px-8 py-3 rounded-full text-sm font-bold shadow-md transition-transform hover:scale-105"
         >
           مشاهدة جميع المشاريع
           <ArrowLeft className="w-4 h-4" />
-        </a>
+        </Link>
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* 2. قسم كروت القيم (الشبكة على اليسار في الشاشات الكبيرة) */}
-        <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 order-2 lg:order-1">
-          
-          {/* كرت 1: الشفافية (أخضر مع زاوية منحنية مميزة) */}
-          <div className="bg-[#0d7a53] text-white p-7 rounded-[2.5rem] rounded-tr-[4rem] flex flex-col justify-between space-y-8 relative shadow-lg">
-            <div className="flex justify-end">
-              <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white">
-                <Check className="w-6 h-6 stroke-[3]" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold">الشفافية</h3>
-              <p className="text-xs text-white/90 leading-relaxed font-light">
-                نلتزم بأعلى معايير الشفافية في جميع عملياتنا وتقاريرنا المالية
-              </p>
-            </div>
-          </div>
-
-          {/* كرت 2: العدالة (أبيض) */}
-          <div className="bg-white text-gray-800 p-7 rounded-[2.5rem] flex flex-col justify-between space-y-8 relative shadow-md border border-gray-100">
-            <div className="flex justify-end">
-              <div className="w-10 h-10 bg-[#e6f4ef] rounded-xl flex items-center justify-center text-[#0d7a53]">
-                <Check className="w-6 h-6 stroke-[3]" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-xl font-extrabold text-gray-900">العدالة</h3>
-              <p className="text-xs text-gray-500 leading-relaxed font-medium">
-                ضمان وصول المساعدات لمستحقيها بناءً على معايير دقيقة
-              </p>
-            </div>
-          </div>
-
-          {/* كرت 3: الكرامة (أخضر) */}
-          <div className="bg-[#0d7a53] text-white p-7 rounded-[2.5rem] flex flex-col justify-between space-y-8 relative shadow-lg">
-            <div className="flex justify-end">
-              <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white">
-                <Check className="w-6 h-6 stroke-[3]" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold">الكرامة</h3>
-              <p className="text-xs text-white/90 leading-relaxed font-light">
-                حفظ كرامة المستفيدين وخصوصيتهم هي أولويتنا القصوى
-              </p>
-            </div>
-          </div>
-
-          {/* كرت 4: التميز (أبيض) */}
-          <div className="bg-white text-gray-800 p-7 rounded-[2.5rem] flex flex-col justify-between space-y-8 relative shadow-md border border-gray-100">
-            <div className="flex justify-end">
-              <div className="w-10 h-10 bg-[#e6f4ef] rounded-xl flex items-center justify-center text-[#0d7a53]">
-                <Check className="w-6 h-6 stroke-[3]" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-xl font-extrabold text-gray-900">التميز</h3>
-              <p className="text-xs text-gray-500 leading-relaxed font-medium">
-                السعي المستمر لتحسين جودة المساعدات وتوسيع نطاق الأثر
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-        {/* 3. قسم رسالة الأمير الوليد بن طلال (على اليمين) */}
-        <div className="lg:col-span-5 space-y-6 order-1 lg:order-2">
+        {/* 2. قسم رسالة الأمير الوليد بن طلال (تم النقل للجهة اليسرى في الشاشات الكبيرة lg:order-1) */}
+        <div className="lg:col-span-5 space-y-6 order-1 lg:order-1">
           
           <div className="space-y-3">
             <span className="inline-block px-4 py-1 rounded-full bg-[#e6f4ef] text-[#0d7a53] text-xs font-bold">
@@ -136,7 +72,7 @@ export default function AboutSection() {
 
             {/* نص الاقتباس */}
             <p className="text-base sm:text-lg font-medium leading-relaxed relative z-10 pt-2">
-              "نحن نؤمن بأن العطاء هو جوهر الإنسانية، وأن العمل الخيري هو السبيل لبناء مجتمعات قوية ومتابطة. نسعى دائماً للوصول إلى كل محتاج ومد يد العون له بكرامة واحترام."
+              "نحن نؤمن بأن العطاء هو جوهر الإنسانية، وأن العمل الخيري هو السبيل لبناء مجتمعات قوية ومتماسكة. نسعى دائماً للوصول إلى كل محتاج ومد يد العون له بكرامة واحترام."
             </p>
 
             {/* خط فاصل سفلي */}
@@ -157,6 +93,71 @@ export default function AboutSection() {
 
           </div>
 
+        </div>
+
+        {/* 3. قسم كروت القيم (تم النقل للجهة اليمنى lg:order-2 وتصغير الفجوة إلى gap-3) */}
+        <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3 order-2 lg:order-2">
+          
+          {/* كرت 1: الشفافية */}
+          <div className="bg-[#0d7a53] text-white p-7 rounded-[2.5rem] rounded-tr-[4rem] flex flex-col justify-between space-y-8 relative shadow-lg">
+            <div className="flex justify-end">
+              <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white">
+                <Check className="w-6 h-6 stroke-[3]" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold">الشفافية</h3>
+              <p className="text-xs text-white/90 leading-relaxed font-light">
+                نلتزم بأعلى معايير الشفافية في جميع عملياتنا وتقاريرنا المالية
+              </p>
+            </div>
+          </div>
+
+          {/* كرت 2: العدالة */}
+          <div className="bg-white text-gray-800 p-7 rounded-[2.5rem] flex flex-col justify-between space-y-8 relative shadow-md border border-gray-100">
+            <div className="flex justify-end">
+              <div className="w-10 h-10 bg-[#e6f4ef] rounded-xl flex items-center justify-center text-[#0d7a53]">
+                <Check className="w-6 h-6 stroke-[3]" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-extrabold text-gray-900">العدالة</h3>
+              <p className="text-xs text-gray-500 leading-relaxed font-medium">
+                ضمان وصول المساعدات لمستحقيها بناءً على معايير دقيقة
+              </p>
+            </div>
+          </div>
+
+          {/* كرت 3: الكرامة */}
+          <div className="bg-[#0d7a53] text-white p-7 rounded-[2.5rem] flex flex-col justify-between space-y-8 relative shadow-lg">
+            <div className="flex justify-end">
+              <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white">
+                <Check className="w-6 h-6 stroke-[3]" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold">الكرامة</h3>
+              <p className="text-xs text-white/90 leading-relaxed font-light">
+                حفظ كرامة المستفيدين وخصوصيتهم هي أولويتنا القصوى
+              </p>
+            </div>
+          </div>
+
+          {/* كرت 4: التميز */}
+          <div className="bg-white text-gray-800 p-7 rounded-[2.5rem] flex flex-col justify-between space-y-8 relative shadow-md border border-gray-100">
+            <div className="flex justify-end">
+              <div className="w-10 h-10 bg-[#e6f4ef] rounded-xl flex items-center justify-center text-[#0d7a53]">
+                <Check className="w-6 h-6 stroke-[3]" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-extrabold text-gray-900">التميز</h3>
+              <p className="text-xs text-gray-500 leading-relaxed font-medium">
+                السعي المستمر لتحسين جودة المساعدات وتوسيع نطاق الأثر
+              </p>
+            </div>
+          </div>
+          
         </div>
 
       </div>
