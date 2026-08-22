@@ -1,11 +1,7 @@
-# السماح لجميع محركات البحث بأرشفة الموقع
 User-agent: *
 Allow: /
 
-# حظر الأرشفة عن المجلدات والروابط الخاصة
 Disallow: /admin
 Disallow: /dashboard
-Disallow: /api/
 
-# مسار خريطة الموقع (قم بتغيير yourdomain.com لدومينك)
-Sitemap: https://yourdomain.com/sitemap.xml     
+Sitemap: https://alwaleed-charity-ap.vercel.app/sitemap.xml
