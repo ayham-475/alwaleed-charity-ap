@@ -1,36 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Loader2 } from 'lucide-react';
 
 export default function BeneficiariesSection() {
+  // الدفعة الافتراضية
   const [selectedBatch, setSelectedBatch] = useState('3');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
-  // الوضع الافتراضي مغلق بالكامل (null)
+  // حالة البرنامج المفتوح
   const [openProgram, setOpenProgram] = useState(null);
   
-  // حالة محاكاة "الرفرش" وجلب البيانات
+  // حالة التحميل (الرفرش) عند تبديل الدفعة
   const [isLoading, setIsLoading] = useState(false);
 
-  // قاعدة بيانات كاملة لكل البرامج والدفعات (1، 2، 3)
+  const dropdownRef = useRef(null);
+
+  // إغلاق المنسدلة عند النقر خارجها
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // قاعدة بيانات كاملة بأسماء وبيانات مختلفة كلياً لكل دفعة
   const beneficiariesData = {
     housing: {
       title: 'برنامج الإسكان',
       batches: {
         '3': [
-          { id: 'kgdfhqeja', name: 'هاجر يحيى سليمان الشهري', city: 'ابها' },
-          { id: 'pctfbhmjk', name: 'محمد علي عبدالرحمن عبدالله', city: 'الرياض' },
-          { id: 'h5rv8gmrm', name: 'خالد علي يحيى معشي', city: 'جده' },
-          { id: 'tmgywp4ro', name: 'عوده سلمان بن عوده المضيبري الرشيدي', city: 'عنيزه' },
-          { id: 'wptklmhsd', name: 'نوره محمد تلاب', city: 'الرياض' },
+          { id: 'SA-HS-9821', name: 'هاجر يحيى سليمان الشهري', city: 'أبها' },
+          { id: 'SA-HS-4102', name: 'محمد علي عبدالرحمن عبدالله', city: 'الرياض' },
+          { id: 'SA-HS-7734', name: 'خالد علي يحيى معشي', city: 'جدة' },
+          { id: 'SA-HS-1190', name: 'عوده سلمان المضيبري الرشيدي', city: 'عنيزة' },
+          { id: 'SA-HS-6623', name: 'نوره محمد تلاب القحطاني', city: 'الرياض' },
         ],
         '2': [
-          { id: 'hs712kqlp', name: 'عبدالله فهد سعد القحطاني', city: 'الدمام' },
-          { id: 'm9021jsha', name: 'سارة عبدالعزيز آل سعود', city: 'الرياض' },
-          { id: 'pl8921mzs', name: 'فيصل عمر إبراهيم الدوسري', city: 'الخرج' },
+          { id: 'SA-HS-5541', name: 'عبدالله فهد سعد القحطاني', city: 'الدمام' },
+          { id: 'SA-HS-8829', name: 'سارة عبدالعزيز التميمي', city: 'الخرج' },
+          { id: 'SA-HS-3320', name: 'فيصل عمر إبراهيم الدوسري', city: 'الرياض' },
+          { id: 'SA-HS-6119', name: 'ماجد إبراهيم السبيعي', city: 'رماح' },
         ],
         '1': [
-          { id: 'b7612mzaq', name: 'سليمان خالد العتيبي', city: 'مكة المكرمة' },
-          { id: 'q10928374', name: 'منى صالح علي الزهراني', city: 'الطائف' },
+          { id: 'SA-HS-1011', name: 'سليمان خالد العتيبي', city: 'مكة المكرمة' },
+          { id: 'SA-HS-2044', name: 'منى صالح علي الزهراني', city: 'الباحة' },
+          { id: 'SA-HS-7890', name: 'وليد منصور الشريف', city: 'ينبع' },
         ],
       },
     },
@@ -38,16 +54,19 @@ export default function BeneficiariesSection() {
       title: 'برنامج السيارات',
       batches: {
         '3': [
-          { id: 'car99281a', name: 'عبد الله صالح الشمري', city: 'حائل' },
-          { id: 'car88123b', name: 'مريم خليفة المري', city: 'الأحساء' },
-          { id: 'car11234c', name: 'يوسف أحمد الغامدي', city: 'الباحة' },
+          { id: 'SA-CR-3301', name: 'عبد الله صالح الشمري', city: 'حائل' },
+          { id: 'SA-CR-8892', name: 'مريم خليفة المري', city: 'الأحساء' },
+          { id: 'SA-CR-5510', name: 'يوسف أحمد الغامدي', city: 'الباحة' },
         ],
         '2': [
-          { id: 'car55432x', name: 'سعود بدر المطيري', city: 'القصيم' },
-          { id: 'car66789y', name: 'نورة خلف العنزي', city: 'تبوك' },
+          { id: 'SA-CR-7721', name: 'سعود بدر الحربي', city: 'المدينة المنورة' },
+          { id: 'SA-CR-1193', name: 'نورة خلف العنزي', city: 'تبوك' },
+          { id: 'SA-CR-4409', name: 'إبراهيم خليل الصالحي', city: 'سكاكا' },
         ],
         '1': [
-          { id: 'car00192z', name: 'فهد حسن المالكي', city: 'نجران' },
+          { id: 'SA-CR-9002', name: 'فهد حسن المالكي', city: 'نجران' },
+          { id: 'SA-CR-3415', name: 'ريم مبارك الشهراني', city: 'خميس مشيط' },
+          { id: 'SA-CR-6781', name: 'بدر حمدان البلوي', city: 'الوجه' },
         ],
       },
     },
@@ -55,84 +74,91 @@ export default function BeneficiariesSection() {
       title: 'برنامج مساعدة مالية',
       batches: {
         '3': [
-          { id: 'fin77361x', name: 'عمر خالد المطيري', city: 'القصيم' },
-          { id: 'fin88291y', name: 'فاطمة محمد العسيري', city: 'محايل عسير' },
+          { id: 'SA-FN-9014', name: 'عمر خالد المطيري', city: 'بريدة' },
+          { id: 'SA-FN-7231', name: 'فاطمة محمد العسيري', city: 'محايل عسير' },
+          { id: 'SA-FN-4482', name: 'تركي ناصر الدوسري', city: 'وادي الدواسر' },
         ],
         '2': [
-          { id: 'fin33211a', name: 'ماجد سلطان الثبيتي', city: 'جدة' },
-          { id: 'fin44901b', name: 'أمل إبراهيم الرشيد', city: 'حفر الباطن' },
+          { id: 'SA-FN-2291', name: 'ماجد سلطان الثبيتي', city: 'الطائف' },
+          { id: 'SA-FN-6673', name: 'أمل إبراهيم الرشيد', city: 'حفر الباطن' },
+          { id: 'SA-FN-1045', name: 'صالح محمد الهاجري', city: 'الجبيل' },
         ],
         '1': [
-          { id: 'fin11092k', name: 'حسن علي الحارثي', city: 'جازان' },
+          { id: 'SA-FN-8812', name: 'حسن علي الحارثي', city: 'جازان' },
+          { id: 'SA-FN-4501', name: 'هدى راشد الفراج', city: 'الزلفي' },
+          { id: 'SA-FN-3390', name: 'ريان سامي الغامدي', city: 'بلجرشي' },
         ],
       },
     },
   };
 
-  // دالة تغيير الدفعة (تقوم بعمل الرفرش وتغلق البرامج)
-  const handleBatchChange = (batch) => {
+  // دالة اختيار الدفعة: تحدث الخانة فوراً، وتبدأ إعادة التحميل لجلب البيانات
+  const handleBatchSelect = (batch) => {
     setIsDropdownOpen(false);
     
-    // إذا اختار نفس الدفعة المفتوحة حالياً، لا تفعل شيء
+    // إذا كانت نفس الدفعة، لا داعي لإعادة التحميل
     if (batch === selectedBatch) return;
 
-    setIsLoading(true); // بدء الرفرش
-    setOpenProgram(null); // إغلاق جميع البرامج فوراً كما طلبت
+    setSelectedBatch(batch); // تحديث الخانة فوراً
+    setIsLoading(true);       // بدء إعادة التحميل
+    setOpenProgram(null);     // إغلاق البرامج أثناء التحميل
 
-    // محاكاة تأخير الشبكة لجلب البيانات (ثانية واحدة)
+    // محاكاة جلب البيانات من السيرفر للدفعة الجديدة
     setTimeout(() => {
-      setSelectedBatch(batch);
-      setIsLoading(false); // إنهاء الرفرش وعرض البيانات
-    }, 800); 
+      setIsLoading(false);    // انتهاء التحميل وعرض بيانات الدفعة المختارة
+    }, 600);
   };
 
-  const toggleProgram = (programKey) => {
-    setOpenProgram(openProgram === programKey ? null : programKey);
+  // فتح وإغلاق البرنامج
+  const toggleProgram = (key) => {
+    setOpenProgram((prev) => (prev === key ? null : key));
   };
 
   return (
-    <section dir="rtl" className="bg-[#f4f6f8] py-16 px-4 font-sans text-right">
-      <div className="max-w-4xl mx-auto">
+    <section dir="rtl" className="bg-[#f0f2f5] min-h-screen py-16 px-4 flex justify-center items-start font-sans">
+      <div className="w-full max-w-3xl">
         
-        {/* الكارت الأخضر الرئيسي */}
-        <div className="bg-[#008752] text-white rounded-[24px] p-6 sm:p-10 shadow-xl relative overflow-hidden min-h-[400px]">
+        {/* الكرت الأخضر الرئيسي */}
+        <div className="bg-[#007a40] text-white rounded-2xl shadow-xl relative overflow-hidden">
           
-          {/* الخلفيات المنحنية الفاتحة الظاهرة بالصورة */}
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-xl pointer-events-none" />
-          <div className="absolute top-1/2 -left-10 w-80 h-80 bg-white/5 rounded-full pointer-events-none" />
+          {/* القوس المنحني الفاتح في الخلفية */}
+          <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[120%] h-[320px] bg-white/[0.07] rounded-t-[100%] pointer-events-none" />
 
-          {/* ترويسة المكون والمنسدلة */}
-          <div className="text-center space-y-6 relative z-10 mb-8">
-            <h2 className="text-2xl sm:text-3xl font-black tracking-wide">
+          {/* الترويسة والمنسدلة */}
+          <div className="pt-8 pb-6 px-8 text-center relative z-10">
+            <h2 className="text-2xl sm:text-[28px] font-bold tracking-normal mb-5 text-white">
               لائحة المستفيدين
             </h2>
 
-            {/* القائمة المنسدلة لاختيار الدفعة */}
-            <div className="relative inline-block w-48 sm:w-56">
+            {/* خانة اختيار الدفعة */}
+            <div className="relative inline-block w-52 sm:w-56" ref={dropdownRef}>
               <button
+                type="button"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full bg-[#006e42] border border-white/40 hover:border-white text-white font-bold py-2 px-4 rounded-lg flex items-center justify-between transition-all"
+                className="w-full bg-[#004f28] hover:bg-[#004523] text-white py-2 px-4 rounded-lg flex items-center justify-between transition-colors shadow-inner text-sm font-semibold border border-white/10"
               >
-                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 <span>الدفعة {selectedBatch}</span>
               </button>
 
-              {/* عناصر الدفعات وتغيير اللون عند الاختيار */}
+              {/* عناصر القائمة المنسدلة */}
               {isDropdownOpen && (
-                <div className="absolute top-full right-0 left-0 mt-1 bg-[#006e42] border border-white/30 rounded-lg shadow-xl z-20 overflow-hidden">
+                <div className="absolute top-full right-0 left-0 mt-1 bg-[#004724] border border-white/15 rounded-lg shadow-2xl z-30 overflow-hidden">
                   {['3', '2', '1'].map((batch) => {
-                    const isSelected = selectedBatch === batch;
+                    const isCurrent = selectedBatch === batch;
                     return (
                       <button
                         key={batch}
-                        onClick={() => handleBatchChange(batch)}
-                        className={`w-full text-right px-4 py-2.5 text-sm font-semibold transition-colors duration-200 ${
-                          isSelected
-                            ? 'bg-[#666666] text-white font-bold'
+                        type="button"
+                        onClick={() => handleBatchSelect(batch)}
+                        className={`w-full text-right px-4 py-2.5 text-sm font-semibold transition-colors flex items-center justify-between ${
+                          isCurrent
+                            ? 'bg-[#555555] text-white font-bold'
                             : 'text-white/90 hover:bg-white/10'
                         }`}
                       >
-                        الدفعة {batch}
+                        <span>الدفعة {batch}</span>
+                        {isCurrent && <span className="text-[11px] bg-white/20 px-1.5 py-0.5 rounded">مفعلة</span>}
                       </button>
                     );
                   })}
@@ -141,50 +167,53 @@ export default function BeneficiariesSection() {
             </div>
           </div>
 
-          {/* عرض حالة التحميل أو قائمة البرامج */}
+          {/* خط فاصل أسفل الترويسة */}
+          <div className="border-t border-white/15" />
+
+          {/* محتوى البرامج أو شاشة الرفرش والتحميل */}
           <div className="relative z-10">
             {isLoading ? (
-              // شاشة التحميل (الرفرش)
-              <div className="flex flex-col items-center justify-center py-12 space-y-4 animate-fadeIn">
-                <Loader2 className="w-10 h-10 text-white animate-spin" />
-                <p className="text-white/80 font-semibold">جاري جلب بيانات الدفعة {selectedBatch}...</p>
+              // شاشة إعادة التحميل
+              <div className="flex flex-col items-center justify-center py-14 space-y-3">
+                <Loader2 className="w-8 h-8 text-white animate-spin" />
+                <p className="text-white/80 text-sm font-medium">جاري جلب بيانات الدفعة {selectedBatch}...</p>
               </div>
             ) : (
-              // قائمة البرامج (تظهر مغلقة بالكامل بعد التحميل)
-              <div className="space-y-2 divide-y divide-white/20 animate-fadeIn">
+              // قائمة البرامج بعد انتهاء التحميل
+              <div className="divide-y divide-white/15">
                 {Object.entries(beneficiariesData).map(([key, program]) => {
                   const isOpen = openProgram === key;
                   const list = program.batches[selectedBatch] || [];
 
-                  // إخفاء البرنامج إذا لم تكن هناك بيانات للدفعة المحددة (اختياري)
-                  if (list.length === 0) return null;
-
                   return (
-                    <div key={key} className="pt-4 first:pt-0">
-                      {/* شريط عنوان البرنامج */}
+                    <div key={key}>
+                      {/* صف البرنامج */}
                       <button
+                        type="button"
                         onClick={() => toggleProgram(key)}
-                        className="w-full flex items-center justify-between py-3 px-2 text-right hover:opacity-90 transition-opacity"
+                        className="w-full flex items-center justify-between px-8 py-5 text-right hover:bg-white/[0.03] transition-colors"
                       >
-                        <span className="text-lg sm:text-xl font-bold text-right">{program.title}</span>
-                        <ChevronDown className={`w-5 h-5 text-white transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-5 h-5 text-white/90 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                        <span className="text-base sm:text-lg font-bold text-white">
+                          {program.title}
+                        </span>
                       </button>
 
-                      {/* جدول البيانات الداخلي */}
+                      {/* جدول المستفيدين الخاص بالدفعة المختارة */}
                       {isOpen && (
-                        <div className="mt-4 bg-white/5 rounded-xl p-4 sm:p-6 transition-all duration-300 animate-fadeIn">
-                          <div className="overflow-x-auto">
+                        <div className="px-8 pb-6 pt-1">
+                          <div className="overflow-x-auto bg-black/15 rounded-xl p-4 border border-white/10">
                             <table className="w-full text-right text-xs sm:text-sm">
                               <thead>
-                                <tr className="border-b border-white/20 text-white/80 font-bold">
+                                <tr className="border-b border-white/20 text-white/75 font-semibold">
                                   <th className="pb-3 px-2 text-right">المدينة</th>
                                   <th className="pb-3 px-2 text-center">الاسم</th>
                                   <th className="pb-3 px-2 text-left">رقم الطلب</th>
                                 </tr>
                               </thead>
                               <tbody className="divide-y divide-white/10">
-                                {list.map((item, index) => (
-                                  <tr key={index} className="hover:bg-white/5 transition-colors">
+                                {list.map((item) => (
+                                  <tr key={item.id} className="hover:bg-white/5 transition-colors">
                                     <td className="py-3 px-2 text-right text-white/90">{item.city}</td>
                                     <td className="py-3 px-2 text-center font-bold text-white">{item.name}</td>
                                     <td className="py-3 px-2 text-left font-mono text-white/80">{item.id}</td>
