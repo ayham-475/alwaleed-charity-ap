@@ -32,7 +32,7 @@ export default function Footer() {
                 <Link to="/Programs" className="hover:text-white hover:underline transition-colors">البرامج</Link>
               </li>
               <li>
-                <Link to="/quistion" className="hover:text-white hover:underline transition-colors">الأسئلة الشائعة</Link>
+                <Link to="/faq" className="hover:text-white hover:underline transition-colors">الأسئلة الشائعة</Link>
               </li>
               <li>
                 <Link to="/PrivacyPolicy" className="hover:text-white hover:underline transition-colors">سياسة الخصوصية</Link>

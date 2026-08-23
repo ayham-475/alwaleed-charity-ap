@@ -59,7 +59,7 @@ function App() {
           <Route path="/ApplyPage" element={<ApplyPage />} />
           <Route path="/TrackOrder" element={<TrackOrder />} />
           <Route path="/NewsDetails/:id" element={<NewsDetails />} />
-          <Route path="/quistion" element={<FAQSection />} />
+          <Route path="/faq" element={<FAQSection />} />
            <Route path="/ProjectDetails/:id" element={<ProjectDeatils />} />
 
           {/* لوحة التحكم وتفاصيل الطلب */}

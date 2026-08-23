@@ -1,4 +1,7 @@
-const AIRTABLE_TOKEN = import.meta.env.VITE_AIRTABLE_API_TOKEN;
+console.log("Token Value:", import.meta.env.VITE_AIRTABLE_API_TOKEN || import.meta.env.VITE_AIRTABLE_TOKEN);
+
+// ✅ قراءة التوكين بالشكل الصحيح بدعم كلا الاسمَين
+const AIRTABLE_TOKEN = import.meta.env.VITE_AIRTABLE_API_TOKEN || import.meta.env.VITE_AIRTABLE_TOKEN;
 const BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
 const TABLE_NAME = import.meta.env.VITE_AIRTABLE_TABLE_NAME || 'Applications';
 
@@ -9,7 +12,6 @@ if (!AIRTABLE_TOKEN || !BASE_ID) {
 
 const BASE_URL = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`;
 
-// ✅ تم تصحيح TOKEN إلى AIRTABLE_TOKEN
 const headers = {
   Authorization: `Bearer ${AIRTABLE_TOKEN}`,
   'Content-Type': 'application/json',
@@ -95,19 +97,11 @@ export const getAllApplications = async () => {
   }
 
   const data = await response.json();
-
+console.log("data : ",data)
   return data.records.map((record) => {
-    const f = record.fields || {};
-    return {
-      recordId: record.id,
-      id: f.id || record.id.slice(-4),
-      fullName: f.full_name || f.fullName || f.Name || f['الاسم الكامل'] || 'بدون اسم',
-      nationalId: f.national_id || f.nationalId || f['رقم الهوية'] || '—',
-      program: f.program_type || f.programType || f.program || f['البرنامج'] || '—',
-      date: record.createdTime 
-        ? new Date(record.createdTime).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long', year: 'numeric' })
-        : '—',
-      status: f.Status || f.status || 'قيد المراجعة',
-    };
-  });
+    
+    return record
+  
+  }
+  );
 };
