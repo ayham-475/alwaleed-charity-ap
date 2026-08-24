@@ -1,7 +1,17 @@
+# General Crawler Rules
 User-agent: *
 Allow: /
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.svg
 
+# Protect Admin and Management Routes
 Disallow: /admin
-Disallow: /dashboard
+Disallow: /admin/
+Disallow: /admin/*
 
+# Sitemap Direction
 Sitemap: https://alwaleed-charity-ap.vercel.app/sitemap.xml
