@@ -55,12 +55,7 @@ export default function Footer() {
                   princes.website@alweleed.com
                 </a>
               </p>
-              <p>
-                <span className="font-semibold text-white">الهاتف: </span>
-                <a href="tel:+966548083615" className="font-mono dir-ltr inline-block hover:underline">
-                  +966546082759
-                </a>
-              </p>
+            
               <p>
                 <span className="font-semibold text-white">واتساب: </span>
                 <a 

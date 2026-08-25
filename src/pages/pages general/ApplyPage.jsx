@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Home, Send, Check, Loader2 } from 'lucide-react';
 import { submitApplication } from '../../services/airtableService'; // استدعاء دالة الإرسال
 
@@ -6,6 +6,9 @@ export default function ApplyPage() {
   const [selectedProgram, setSelectedProgram] = useState(null);
   const [isAgreed, setIsAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
+  
+  // مرجع (Ref) للنزول التلقائي للسكرول
+  const formSectionRef = useRef(null);
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -38,8 +41,35 @@ export default function ApplyPage() {
     'بنك الجزيرة',
   ];
 
+  // دالة اختيار البرنامج مع التمرير السلس
+  const handleProgramSelect = (progId) => {
+    setSelectedProgram(progId);
+    // نستخدم setTimeout لضمان أن المكونات تم رسمها في الـ DOM قبل التمرير
+    setTimeout(() => {
+      if (formSectionRef.current) {
+        formSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 150);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // تطبيق القيود المباشرة أثناء الكتابة
+    if (name === 'nationalId' || name === 'phone') {
+      // السماح بالأرقام فقط
+      const onlyNums = value.replace(/[^0-9]/g, '');
+      setFormData((prev) => ({ ...prev, [name]: onlyNums }));
+      return;
+    }
+
+    if (name === 'accountNumber') {
+      // إزالة المسافات وتحويل الحروف إلى Capital للآيبان
+      const formattedAccount = value.replace(/\s/g, '').toUpperCase();
+      setFormData((prev) => ({ ...prev, [name]: formattedAccount }));
+      return;
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -96,6 +126,7 @@ export default function ApplyPage() {
       });
       setSelectedProgram(null);
       setIsAgreed(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // العودة للأعلى بعد الإرسال
     } catch (error) {
       console.error('Error submitting application:', error);
       alert('حدث خطأ أثناء إرسال الطلب: ' + error.message);
@@ -106,7 +137,6 @@ export default function ApplyPage() {
 
   return (
     <div dir="rtl" className="min-h-screen bg-white py-12 px-4 sm:px-6 font-sans text-right text-white">
-      {/* تم تكبير العرض الأقصى للحاوية من max-w-3xl إلى max-w-4xl لتبدو أوسع */}
       <div className="max-w-4xl mx-auto space-y-8">
 
         {/* الترويسة */}
@@ -124,7 +154,7 @@ export default function ApplyPage() {
 
         <form onSubmit={handleSubmit} className="space-y-8">
 
-          {/* 1. بطاقة نوع الطلب - تم زيادة البادن والحجم */}
+          {/* 1. بطاقة نوع الطلب */}
           <div className="bg-[#008752] rounded-[24px] p-7 sm:p-9 shadow-md">
             <h2 className="text-base sm:text-lg font-bold mb-6 text-white">نوع الطلب</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -134,7 +164,7 @@ export default function ApplyPage() {
                   <button
                     key={prog.id}
                     type="button"
-                    onClick={() => setSelectedProgram(prog.id)}
+                    onClick={() => handleProgramSelect(prog.id)}
                     className={`relative flex flex-col items-center justify-center p-5 sm:p-6 rounded-2xl border transition-all text-center gap-3.5 min-h-[140px] cursor-pointer ${
                       isSelected
                         ? 'bg-[#099b5e] border-2 border-white shadow-lg scale-[1.02]' 
@@ -153,7 +183,7 @@ export default function ApplyPage() {
 
           {/* 2. باقي أجزاء النموذج */}
           {selectedProgram && (
-            <div className="space-y-8 animate-fadeIn">
+            <div ref={formSectionRef} className="space-y-8 animate-fadeIn scroll-mt-6">
 
               {/* معلومات مقدم الطلب */}
               <div className="bg-[#008752] rounded-[24px] p-7 sm:p-9 shadow-md space-y-6">
@@ -166,6 +196,8 @@ export default function ApplyPage() {
                       type="text"
                       name="fullName"
                       required
+                      minLength={10}
+                      title="يرجى كتابة الاسم الرباعي بشكل صحيح"
                       placeholder="الاسم الرباعي"
                       value={formData.fullName}
                       onChange={handleChange}
@@ -193,10 +225,15 @@ export default function ApplyPage() {
                       type="text"
                       name="nationalId"
                       required
-                      placeholder="رقم الهوية الوطنية"
+                      maxLength={10}
+                      minLength={10}
+                      pattern="\d{10}"
+                      title="رقم الهوية يجب أن يتكون من 10 أرقام"
+                      placeholder="رقم الهوية الوطنية (10 أرقام)"
                       value={formData.nationalId}
                       onChange={handleChange}
-                      className="w-full bg-[#077a4a] border border-[#0ea063] rounded-xl px-4 py-3 text-sm sm:text-base text-white placeholder-[#8ce2be]/70 focus:outline-none focus:bg-[#099b5e] focus:border-white transition-all"
+                      className="w-full bg-[#077a4a] border border-[#0ea063] rounded-xl px-4 py-3 text-sm sm:text-base text-white placeholder-[#8ce2be]/70 focus:outline-none focus:bg-[#099b5e] focus:border-white transition-all text-left"
+                      dir="ltr"
                     />
                   </div>
 
@@ -232,7 +269,10 @@ export default function ApplyPage() {
                       type="tel"
                       name="phone"
                       required
-                      placeholder="05xxxxxxx"
+                      maxLength={10}
+                      pattern="^05\d{8}$"
+                      title="رقم الجوال يجب أن يبدأ بـ 05 ويتكون من 10 أرقام"
+                      placeholder="05XXXXXXXX"
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full bg-[#077a4a] border border-[#0ea063] rounded-xl px-4 py-3 text-sm sm:text-base text-white placeholder-[#8ce2be]/70 focus:outline-none focus:bg-[#099b5e] focus:border-white transition-all text-left"
@@ -248,12 +288,15 @@ export default function ApplyPage() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-white">رقم الحساب <span className="text-red-300">*</span></label>
+                    <label className="text-sm font-bold text-white">رقم الحساب الآيبان (IBAN) <span className="text-red-300">*</span></label>
                     <input
                       type="text"
                       name="accountNumber"
                       required
-                      placeholder="SA00 0000 0000 0000 0000 0000"
+                      maxLength={24}
+                      pattern="^SA[A-Z0-9]{22}$"
+                      title="يجب أن يبدأ بـ SA يليه 22 خانة (أرقام وحروف)"
+                      placeholder="SA0000000000000000000000"
                       value={formData.accountNumber}
                       onChange={handleChange}
                       className="w-full bg-[#077a4a] border border-[#0ea063] rounded-xl px-4 py-3 text-sm sm:text-base text-white placeholder-[#8ce2be]/70 focus:outline-none focus:bg-[#099b5e] focus:border-white transition-all text-left"
@@ -291,6 +334,8 @@ export default function ApplyPage() {
                     name="caseDetails"
                     rows="4"
                     required
+                    minLength={20}
+                    title="يرجى توضيح الحالة بكلمات واضحة لا تقل عن 20 حرف"
                     placeholder="اشرح حالتك بشكل مختصر وواضح..."
                     value={formData.caseDetails}
                     onChange={handleChange}
