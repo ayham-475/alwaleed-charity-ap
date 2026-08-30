@@ -115,7 +115,7 @@ export default function Admin() {
 
             <div className="flex items-center gap-3 pl-2 border-r border-gray-100 mr-2">
               <div className="hidden lg:block text-left mr-2">
-                <p className="text-sm font-bold text-gray-800">أيهم العري</p>
+                <p className="text-sm font-bold text-gray-800"> </p>
                 <p className="text-xs text-gray-400 font-medium">مدير النظام</p>
               </div>
               <div className="w-12 h-12 bg-green-100 rounded-2xl border-2 border-white shadow-md overflow-hidden flex items-center justify-center">

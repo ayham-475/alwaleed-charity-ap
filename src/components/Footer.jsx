@@ -5,10 +5,10 @@ export default function Footer() {
   return (
     <footer dir="rtl" className="bg-[#075e3d] text-white pt-12 pb-6 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-7xl mx-auto space-y-8">
-        
+
         {/* الأعمدة الثلاثة الرئيسية */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-right">
-          
+
           {/* العمود الأول: نبذة عن المؤسسة */}
           <div className="space-y-3">
             <h3 className="text-xl font-bold text-white">
@@ -55,28 +55,28 @@ export default function Footer() {
                   princes.website@alweleed.com
                 </a>
               </p>
-            
+
               <p>
                 <span className="font-semibold text-white">واتساب: </span>
-                <a 
-                  href="https://wa.me/966546082759" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://wa.me/966546082759"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="font-mono dir-ltr inline-block hover:underline"
                 >
                   966546082759
-                  
+
                 </a>
               </p>
               <p>
                 <span className="font-semibold text-white">تليجرام: </span>
-                <a 
-                  href="https://wa.me/966546082759" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://t.me/+966546082759"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="font-mono dir-ltr inline-block hover:underline"
                 >
-                  966546082759
+                  +966546082759
                 </a>
               </p>
             </div>

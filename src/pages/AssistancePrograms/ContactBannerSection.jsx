@@ -27,7 +27,7 @@ export default function ContactBannerSection() {
             </Link>
 
             {/* زر الأسئلة الشائعة (أخضر داكن) */}
-            <Link to="/quistion">
+            <Link to="/faq">
             <button className="bg-[#006e42] hover:bg-[#005e38] text-white font-bold px-7 py-2.5 rounded-xl transition-colors border border-white/10 text-sm">
               الأسئلة الشائعة
             </button>

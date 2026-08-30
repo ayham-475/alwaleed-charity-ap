@@ -171,13 +171,7 @@ export default function Navbar() {
                   >
                     تتبع الطلب
                   </Link>
-                  <Link
-                    to="/admin"
-                    onClick={() => setIsOpen(false)}
-                    className="w-full text-center py-2.5 text-sm font-bold text-[#0d7a53] bg-white border border-[#0d7a53] hover:bg-[#e6f4ef] rounded-xl transition-all"
-                  >
-                     الطلبات
-                  </Link>
+                 
                 </div>
               </div>
             </motion.div>

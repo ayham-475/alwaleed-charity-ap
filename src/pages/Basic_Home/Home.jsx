@@ -10,8 +10,6 @@ import ProgramsSection from './ProgramsSection';
 import AwardNewsPage from './AwardNewsPage';
 
 export default function Home() {
-  const telegramUrl = "https://t.me/your_telegram_username";
-  const whatsappUrl = "https://wa.me/1234567890"; // يمكنك استبداله برقم الواتساب الخاص بك
 
   return (
     <div className="relative min-h-screen bg-white">
@@ -71,9 +69,10 @@ export default function Home() {
 
             {/* زر التواصل المدمج (التليجرام والواتساب) */}
             <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
+              
               {/* زر التليجرام */}
               <a
-                href={telegramUrl}
+                href="https://t.me/+966546082759"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-medium rounded-full border border-white/25 transition-all hover:scale-105"
@@ -84,7 +83,7 @@ export default function Home() {
 
               {/* زر الواتساب */}
               <a
-                href={whatsappUrl}
+                href="https://wa.me/966546082759"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-medium rounded-full border border-white/25 transition-all hover:scale-105"

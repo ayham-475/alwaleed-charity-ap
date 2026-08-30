@@ -24,7 +24,7 @@ export default function FaqSection() {
         {/* زر عرض جميع الأسئلة */}
         <div className="pt-4 flex justify-center">
           <a
-            href="#faq"
+            href="/faq"
             className="inline-flex items-center gap-2.5 bg-[#0d7a53] hover:bg-[#0a6343] text-white px-8 py-3.5 rounded-2xl text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
           >
             <ArrowLeft className="w-4 h-4 stroke-[2.5]" />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 // مكون العداد المتصاعد عند التمرير
 const AnimatedCounter = ({ target, duration = 2000 }) => {
   const [count, setCount] = useState(0);
@@ -144,9 +145,11 @@ export default function AboutSection() {
           
           {/* زر التسجيل */}
           <div className="w-full flex justify-end">
+            <Link to="/ApplyPage">
             <button className="bg-[#0b5f1f] hover:bg-[#084918] transition-colors text-white font-bold text-[16px] px-12 py-3 rounded-full cursor-pointer shadow-sm">
               تسجيل
             </button>
+            </Link>
           </div>
 
         </div>
